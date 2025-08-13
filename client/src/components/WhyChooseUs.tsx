@@ -5,33 +5,33 @@ const WhyChooseUs = () => {
   const benefits = [
     {
       icon: Shield,
-      title: "Trusted Suppliers",
-      description: "We partner with verified and reliable car suppliers across the region"
+      title: "Fully Insured",
+      description: "All our vehicles come with comprehensive insurance coverage for your peace of mind"
     },
     {
       icon: Clock,
-      title: "24/7 Operations",
-      description: "Round-the-clock fleet management and rental coordination"
+      title: "24/7 Support",
+      description: "Round-the-clock customer service to assist you whenever you need help"
     },
     {
       icon: Award,
-      title: "Quality Assurance",
-      description: "All vehicles are inspected and meet our quality standards"
+      title: "Premium Quality",
+      description: "Well-maintained, regularly serviced vehicles from top automotive brands"
     },
     {
       icon: Headphones,
-      title: "Business Focus",
-      description: "Dedicated to serving corporate and individual rental needs"
+      title: "Easy Booking",
+      description: "Simple online booking process with instant confirmation and flexible options"
     },
     {
       icon: MapPin,
-      title: "Wide Network",
-      description: "Extensive supplier network ensuring vehicle availability"
+      title: "Multiple Locations",
+      description: "Convenient pickup and drop-off locations across the city and airports"
     },
     {
       icon: CreditCard,
-      title: "Quick Processing",
-      description: "Efficient booking and delivery coordination with suppliers"
+      title: "Best Prices",
+      description: "Competitive rates with no hidden fees and transparent pricing policy"
     }
   ];
 
@@ -41,10 +41,10 @@ const WhyChooseUs = () => {
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Our Business Model
+            Why Choose DriveAway?
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            How IMA Traders operates as a car rental intermediary business
+            Experience the difference with our premium car rental service designed around your needs
           </p>
         </div>
 

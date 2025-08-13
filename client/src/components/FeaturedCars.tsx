@@ -58,10 +58,10 @@ const FeaturedCars = () => {
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Car Inventory
+            Featured Vehicles
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Current cars available in our fleet from various suppliers
+            Choose from our premium collection of well-maintained vehicles, perfect for any journey
           </p>
         </div>
 
@@ -121,7 +121,7 @@ const FeaturedCars = () => {
                 </div>
 
                 <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                  Manage
+                  Book Now
                 </Button>
               </CardContent>
             </Card>
@@ -131,7 +131,7 @@ const FeaturedCars = () => {
         {/* View All Button */}
         <div className="text-center mt-12">
           <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            View All Inventory
+            View All Vehicles
           </Button>
         </div>
       </div>
