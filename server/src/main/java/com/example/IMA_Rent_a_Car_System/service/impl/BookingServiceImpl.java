@@ -6,6 +6,8 @@ import com.example.IMA_Rent_a_Car_System.entity.Booking;
 import com.example.IMA_Rent_a_Car_System.exception.NotFoundException;
 import com.example.IMA_Rent_a_Car_System.mapper.BookingMapper;
 import com.example.IMA_Rent_a_Car_System.repository.BookingRepository;
+import com.example.IMA_Rent_a_Car_System.repository.CustomerRepository;
+import com.example.IMA_Rent_a_Car_System.repository.VehicleRepository;
 import com.example.IMA_Rent_a_Car_System.service.BookingService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +23,19 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
+    private final CustomerRepository customerRepository;
+    private final VehicleRepository vehicleRepository;
 
     @Override
     @Transactional
     public BookingResponseDTO createBooking(BookingRequestDTO dto) {
-        Booking booking = bookingMapper.toEntity(dto);
-        booking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(booking);
+    Booking booking = bookingMapper.toEntity(dto);
+    booking.setCustomer(customerRepository.findById(dto.getCustomerId())
+        .orElseThrow(() -> new NotFoundException("Customer not found with id: " + dto.getCustomerId())));
+    booking.setVehicle(vehicleRepository.findById(dto.getVehicleId())
+        .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + dto.getVehicleId())));
+    booking = bookingRepository.save(booking);
+    return bookingMapper.toDTO(booking);
     }
 
     @Override
@@ -45,21 +53,23 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public BookingResponseDTO updateBooking(Long id, BookingRequestDTO dto) {
-        Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Booking not found with id: " + id));
-        booking.setCustomerId(dto.getCustomerId());
-        booking.setVehicleId(dto.getVehicleId());
-        booking.setStartDatetime(dto.getStartDatetime());
-        booking.setEndDatetime(dto.getEndDatetime());
-        booking.setEstimatedDistance(dto.getEstimatedDistance());
-        booking.setRatePerUnit(dto.getRatePerUnit());
-        booking.setTotalBill(dto.getTotalBill());
-        booking.setDeposit(dto.getDeposit());
-        booking.setAdvancePayment(dto.getAdvancePayment());
-        booking.setAdditionalCharges(dto.getAdditionalCharges());
-        booking.setStatus(dto.getStatus());
-        booking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(booking);
+    Booking booking = bookingRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Booking not found with id: " + id));
+    booking.setCustomer(customerRepository.findById(dto.getCustomerId())
+        .orElseThrow(() -> new NotFoundException("Customer not found with id: " + dto.getCustomerId())));
+    booking.setVehicle(vehicleRepository.findById(dto.getVehicleId())
+        .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + dto.getVehicleId())));
+    booking.setStartDatetime(dto.getStartDatetime());
+    booking.setEndDatetime(dto.getEndDatetime());
+    booking.setEstimatedDistance(dto.getEstimatedDistance());
+    booking.setRatePerUnit(dto.getRatePerUnit());
+    booking.setTotalBill(dto.getTotalBill());
+    booking.setDeposit(dto.getDeposit());
+    booking.setAdvancePayment(dto.getAdvancePayment());
+    booking.setAdditionalCharges(dto.getAdditionalCharges());
+    booking.setStatus(dto.getStatus());
+    booking = bookingRepository.save(booking);
+    return bookingMapper.toDTO(booking);
     }
 
     @Override
@@ -78,14 +88,15 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+
     public List<BookingResponseDTO> getBookingsByCustomerId(Long customerId) {
-        return bookingRepository.findByCustomerId(customerId)
+        return bookingRepository.findByCustomer_CustomerId(customerId)
                 .stream().map(bookingMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<BookingResponseDTO> getBookingsByVehicleId(Long vehicleId) {
-        return bookingRepository.findByVehicleId(vehicleId)
+        return bookingRepository.findByVehicle_VehicleId(vehicleId)
                 .stream().map(bookingMapper::toDTO).collect(Collectors.toList());
     }
 }

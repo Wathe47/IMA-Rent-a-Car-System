@@ -13,7 +13,7 @@ public class VehicleRequestDTO {
     private Vehicle.OwnerType ownerType;
 
     @NotNull
-    private Long ownerId;
+    private Long supplierId;
 
     @NotBlank
     private String registrationNo;

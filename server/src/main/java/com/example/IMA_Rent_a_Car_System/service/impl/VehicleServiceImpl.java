@@ -6,6 +6,7 @@ import com.example.IMA_Rent_a_Car_System.entity.Vehicle;
 import com.example.IMA_Rent_a_Car_System.exception.NotFoundException;
 import com.example.IMA_Rent_a_Car_System.mapper.VehicleMapper;
 import com.example.IMA_Rent_a_Car_System.repository.VehicleRepository;
+import com.example.IMA_Rent_a_Car_System.repository.SupplierRepository;
 import com.example.IMA_Rent_a_Car_System.service.VehicleService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,18 @@ import org.springframework.stereotype.Service;
 public class VehicleServiceImpl implements VehicleService {
     private final VehicleRepository vehicleRepository;
     private final VehicleMapper vehicleMapper;
+    private final SupplierRepository supplierRepository;
 
     @Override
     @Transactional
     public VehicleResponseDTO createVehicle(VehicleRequestDTO dto) {
+        // Check for duplicate registration number
+        if (vehicleRepository.existsByRegistrationNo(dto.getRegistrationNo())) {
+            throw new IllegalArgumentException("A vehicle with registration number '" + dto.getRegistrationNo() + "' already exists.");
+        }
         Vehicle vehicle = vehicleMapper.toEntity(dto);
+        vehicle.setSupplier(supplierRepository.findById(dto.getSupplierId())
+            .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + dto.getSupplierId())));
         vehicle = vehicleRepository.save(vehicle);
         return vehicleMapper.toDTO(vehicle);
     }
@@ -46,7 +54,8 @@ public class VehicleServiceImpl implements VehicleService {
                 .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + id));
         vehicle.setType(dto.getType());
         vehicle.setOwnerType(dto.getOwnerType());
-        vehicle.setOwnerId(dto.getOwnerId());
+        vehicle.setSupplier(supplierRepository.findById(dto.getSupplierId())
+            .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + dto.getSupplierId())));
         vehicle.setRegistrationNo(dto.getRegistrationNo());
         vehicle.setManufacture(dto.getManufacture());
         vehicle.setModel(dto.getModel());

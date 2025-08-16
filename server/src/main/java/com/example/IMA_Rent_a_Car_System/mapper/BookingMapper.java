@@ -7,10 +7,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BookingMapper {
+    /**
+     * The Customer and Vehicle must be set in the service layer after fetching from DB.
+     */
     public Booking toEntity(BookingRequestDTO dto) {
         return Booking.builder()
-                .customerId(dto.getCustomerId())
-                .vehicleId(dto.getVehicleId())
+                // .customer(customer) // set in service
+                // .vehicle(vehicle)   // set in service
                 .startDatetime(dto.getStartDatetime())
                 .endDatetime(dto.getEndDatetime())
                 .estimatedDistance(dto.getEstimatedDistance())
@@ -26,8 +29,8 @@ public class BookingMapper {
     public BookingResponseDTO toDTO(Booking entity) {
         BookingResponseDTO dto = new BookingResponseDTO();
         dto.setBookingId(entity.getBookingId());
-        dto.setCustomerId(entity.getCustomerId());
-        dto.setVehicleId(entity.getVehicleId());
+        dto.setCustomerId(entity.getCustomer() != null ? entity.getCustomer().getCustomerId() : null);
+        dto.setVehicleId(entity.getVehicle() != null ? entity.getVehicle().getVehicleId() : null);
         dto.setStartDatetime(entity.getStartDatetime());
         dto.setEndDatetime(entity.getEndDatetime());
         dto.setEstimatedDistance(entity.getEstimatedDistance());

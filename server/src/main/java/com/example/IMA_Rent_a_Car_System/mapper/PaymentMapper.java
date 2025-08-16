@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PaymentMapper {
     public Payment toEntity(PaymentRequestDTO dto) {
         return Payment.builder()
-                .bookingId(dto.getBookingId())
+                // .booking(booking) // set in service
                 .paymentDate(dto.getPaymentDate())
                 .amount(dto.getAmount())
                 .paymentType(dto.getPaymentType())
@@ -19,7 +19,7 @@ public class PaymentMapper {
     public PaymentResponseDTO toDTO(Payment entity) {
         PaymentResponseDTO dto = new PaymentResponseDTO();
         dto.setPaymentId(entity.getPaymentId());
-        dto.setBookingId(entity.getBookingId());
+        dto.setBookingId(entity.getBooking() != null ? entity.getBooking().getBookingId() : null);
         dto.setPaymentDate(entity.getPaymentDate());
         dto.setAmount(entity.getAmount());
         dto.setPaymentType(entity.getPaymentType());

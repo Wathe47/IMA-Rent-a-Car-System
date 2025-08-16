@@ -15,8 +15,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    @Column(nullable = false)
-    private Long bookingId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
 
     @Column(nullable = false)
     private LocalDate paymentDate;

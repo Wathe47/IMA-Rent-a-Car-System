@@ -6,6 +6,7 @@ import com.example.IMA_Rent_a_Car_System.entity.Payment;
 import com.example.IMA_Rent_a_Car_System.exception.NotFoundException;
 import com.example.IMA_Rent_a_Car_System.mapper.PaymentMapper;
 import com.example.IMA_Rent_a_Car_System.repository.PaymentRepository;
+import com.example.IMA_Rent_a_Car_System.repository.BookingRepository;
 import com.example.IMA_Rent_a_Car_System.service.PaymentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,14 @@ import java.util.stream.Collectors;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
+    private final BookingRepository bookingRepository;
 
     @Override
     @Transactional
     public PaymentResponseDTO createPayment(PaymentRequestDTO dto) {
         Payment payment = paymentMapper.toEntity(dto);
+        payment.setBooking(bookingRepository.findById(dto.getBookingId())
+                .orElseThrow(() -> new NotFoundException("Booking not found with id: " + dto.getBookingId())));
         payment = paymentRepository.save(payment);
         return paymentMapper.toDTO(payment);
     }
@@ -45,14 +49,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public PaymentResponseDTO updatePayment(Long id, PaymentRequestDTO dto) {
-        Payment payment = paymentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Payment not found with id: " + id));
-        payment.setBookingId(dto.getBookingId());
-        payment.setPaymentDate(dto.getPaymentDate());
-        payment.setAmount(dto.getAmount());
-        payment.setPaymentType(dto.getPaymentType());
-        payment = paymentRepository.save(payment);
-        return paymentMapper.toDTO(payment);
+    Payment payment = paymentRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Payment not found with id: " + id));
+    payment.setBooking(bookingRepository.findById(dto.getBookingId())
+        .orElseThrow(() -> new NotFoundException("Booking not found with id: " + dto.getBookingId())));
+    payment.setPaymentDate(dto.getPaymentDate());
+    payment.setAmount(dto.getAmount());
+    payment.setPaymentType(dto.getPaymentType());
+    payment = paymentRepository.save(payment);
+    return paymentMapper.toDTO(payment);
     }
 
     @Override
@@ -66,7 +71,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<PaymentResponseDTO> getPaymentsByBookingId(Long bookingId) {
-        return paymentRepository.findByBookingId(bookingId)
+        return paymentRepository.findByBooking_BookingId(bookingId)
                 .stream().map(paymentMapper::toDTO).collect(Collectors.toList());
     }
 }

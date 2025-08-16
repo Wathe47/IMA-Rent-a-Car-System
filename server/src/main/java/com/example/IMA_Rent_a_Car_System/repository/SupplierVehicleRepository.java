@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface SupplierVehicleRepository extends JpaRepository<SupplierVehicle, Long> {
-    List<SupplierVehicle> findBySupplierId(Long supplierId);
-    List<SupplierVehicle> findByVehicleId(Long vehicleId);
+    List<SupplierVehicle> findBySupplier_SupplierId(Long supplierId);
+    List<SupplierVehicle> findByVehicle_VehicleId(Long vehicleId);
 }

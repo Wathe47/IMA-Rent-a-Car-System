@@ -11,7 +11,7 @@ public class VehicleMapper {
         return Vehicle.builder()
                 .type(dto.getType())
                 .ownerType(dto.getOwnerType())
-                .ownerId(dto.getOwnerId())
+                // supplier entity reference should be set in the service layer
                 .registrationNo(dto.getRegistrationNo())
                 .manufacture(dto.getManufacture())
                 .model(dto.getModel())
@@ -27,7 +27,12 @@ public class VehicleMapper {
         dto.setVehicleId(entity.getVehicleId());
         dto.setType(entity.getType());
         dto.setOwnerType(entity.getOwnerType());
-        dto.setOwnerId(entity.getOwnerId());
+            // Set ownerId from supplier if ownerType is SUPPLIER
+            if (entity.getOwnerType() == Vehicle.OwnerType.SUPPLIER && entity.getSupplier() != null) {
+                dto.setSupplierId(entity.getSupplier().getSupplierId());
+            } else {
+                dto.setSupplierId(null);
+            }
         dto.setRegistrationNo(entity.getRegistrationNo());
         dto.setManufacture(entity.getManufacture());
         dto.setModel(entity.getModel());

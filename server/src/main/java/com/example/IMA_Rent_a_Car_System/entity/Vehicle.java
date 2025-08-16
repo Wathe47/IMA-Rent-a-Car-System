@@ -17,12 +17,15 @@ public class Vehicle {
     @Column(nullable = false)
     private String type;
 
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OwnerType ownerType;
 
-    @Column(nullable = false)
-    private Long ownerId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
+
 
     @Column(nullable = false, unique = true)
     private String registrationNo;

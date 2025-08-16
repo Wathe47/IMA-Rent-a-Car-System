@@ -1,3 +1,5 @@
+
+
 package com.example.IMA_Rent_a_Car_System.entity;
 
 import jakarta.persistence.*;
@@ -15,11 +17,13 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
-    @Column(nullable = false)
-    private Long customerId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    @Column(nullable = false)
-    private Long vehicleId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicle vehicle;
 
     @Column(nullable = false)
     private LocalDateTime startDatetime;

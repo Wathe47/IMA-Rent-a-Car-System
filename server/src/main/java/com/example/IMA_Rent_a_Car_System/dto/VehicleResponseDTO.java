@@ -8,7 +8,7 @@ public class VehicleResponseDTO {
     private Long vehicleId;
     private String type;
     private Vehicle.OwnerType ownerType;
-    private Long ownerId;
+    private Long supplierId;
     private String registrationNo;
     private String manufacture;
     private String model;
