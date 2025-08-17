@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,26 +19,31 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'DATA_ENTRY')")
     public ResponseEntity<CustomerResponseDTO> createCustomer(@Valid @RequestBody CustomerRequestDTO dto) {
         return new ResponseEntity<>(customerService.createCustomer(dto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DATA_ENTRY', 'USER')")
     public ResponseEntity<CustomerResponseDTO> getCustomer(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'DATA_ENTRY', 'USER')")
     public ResponseEntity<Page<CustomerResponseDTO>> getAllCustomers(Pageable pageable) {
         return ResponseEntity.ok(customerService.getAllCustomers(pageable));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DATA_ENTRY')")
     public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerRequestDTO dto) {
         return ResponseEntity.ok(customerService.updateCustomer(id, dto));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DATA_ENTRY')")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
