@@ -61,8 +61,9 @@ public class BookingServiceImpl implements BookingService {
         .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + dto.getVehicleId())));
     booking.setStartDatetime(dto.getStartDatetime());
     booking.setEndDatetime(dto.getEndDatetime());
-    booking.setEstimatedDistance(dto.getEstimatedDistance());
-    booking.setRatePerUnit(dto.getRatePerUnit());
+    booking.setDistance(dto.getDistance());
+    booking.setCustomerNameWithNic(dto.getCustomerNameWithNic());
+    booking.setVehicleNameWithReg(dto.getVehicleNameWithReg());
     booking.setTotalBill(dto.getTotalBill());
     booking.setDeposit(dto.getDeposit());
     booking.setAdvancePayment(dto.getAdvancePayment());

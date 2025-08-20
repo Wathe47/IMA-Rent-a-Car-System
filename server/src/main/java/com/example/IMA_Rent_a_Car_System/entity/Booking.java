@@ -31,11 +31,15 @@ public class Booking {
     @Column(nullable = false)
     private LocalDateTime endDatetime;
 
-    @Column(nullable = false)
-    private Double estimatedDistance;
 
     @Column(nullable = false)
-    private Double ratePerUnit;
+    private Double distance;
+
+    @Column(nullable = false, length = 128)
+    private String customerNameWithNic;
+
+    @Column(nullable = false, length = 128)
+    private String vehicleNameWithReg;
 
     @Column(nullable = false)
     private Double totalBill;

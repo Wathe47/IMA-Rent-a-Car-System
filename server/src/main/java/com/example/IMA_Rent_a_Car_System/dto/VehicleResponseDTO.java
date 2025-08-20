@@ -7,7 +7,6 @@ import lombok.Data;
 public class VehicleResponseDTO {
     private Long vehicleId;
     private String type;
-    private Vehicle.OwnerType ownerType;
     private Long supplierId;
     private String registrationNo;
     private String manufacture;
@@ -16,4 +15,5 @@ public class VehicleResponseDTO {
     private int seats;
     private double dailyRate;
     private double extraKmRate;
+    private Vehicle.TransmissionType transmissionType;
 }

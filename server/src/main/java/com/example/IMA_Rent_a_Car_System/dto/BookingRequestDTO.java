@@ -16,9 +16,11 @@ public class BookingRequestDTO {
     @NotNull
     private LocalDateTime endDatetime;
     @NotNull
-    private Double estimatedDistance;
+    private Double distance;
     @NotNull
-    private Double ratePerUnit;
+    private String customerNameWithNic;
+    @NotNull
+    private String vehicleNameWithReg;
     @NotNull
     private Double totalBill;
     @NotNull

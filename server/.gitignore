@@ -1,3 +1,28 @@
 
 # Ignore environment variable and secret files
 src/main/resources/application.yml
+
+# Maven build output
+/target/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.iml
+.idea/
+.vscode/
+
+# Spring Boot config (all envs)
+/application.yml
+src/main/resources/application-*.yml
+
+# Compiled Java classes
+*.class

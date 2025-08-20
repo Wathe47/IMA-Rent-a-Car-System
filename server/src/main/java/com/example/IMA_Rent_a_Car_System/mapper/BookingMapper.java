@@ -16,8 +16,9 @@ public class BookingMapper {
                 // .vehicle(vehicle)   // set in service
                 .startDatetime(dto.getStartDatetime())
                 .endDatetime(dto.getEndDatetime())
-                .estimatedDistance(dto.getEstimatedDistance())
-                .ratePerUnit(dto.getRatePerUnit())
+                .distance(dto.getDistance())
+                .customerNameWithNic(dto.getCustomerNameWithNic())
+                .vehicleNameWithReg(dto.getVehicleNameWithReg())
                 .totalBill(dto.getTotalBill())
                 .deposit(dto.getDeposit())
                 .advancePayment(dto.getAdvancePayment())
@@ -33,8 +34,9 @@ public class BookingMapper {
         dto.setVehicleId(entity.getVehicle() != null ? entity.getVehicle().getVehicleId() : null);
         dto.setStartDatetime(entity.getStartDatetime());
         dto.setEndDatetime(entity.getEndDatetime());
-        dto.setEstimatedDistance(entity.getEstimatedDistance());
-        dto.setRatePerUnit(entity.getRatePerUnit());
+    dto.setDistance(entity.getDistance());
+    dto.setCustomerNameWithNic(entity.getCustomerNameWithNic());
+    dto.setVehicleNameWithReg(entity.getVehicleNameWithReg());
         dto.setTotalBill(entity.getTotalBill());
         dto.setDeposit(entity.getDeposit());
         dto.setAdvancePayment(entity.getAdvancePayment());
