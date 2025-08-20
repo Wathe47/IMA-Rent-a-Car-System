@@ -10,7 +10,6 @@ public class VehicleRequestDTO {
     private String type;
 
     @NotNull
-    private Vehicle.OwnerType ownerType;
 
     @NotNull
     private Long supplierId;
@@ -35,4 +34,8 @@ public class VehicleRequestDTO {
 
     @DecimalMin("0.0")
     private double extraKmRate;
+
+    @NotNull
+    private Vehicle.TransmissionType transmissionType;
+
 }

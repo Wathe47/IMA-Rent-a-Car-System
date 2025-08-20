@@ -18,9 +18,6 @@ public class Vehicle {
     private String type;
 
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private OwnerType ownerType;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id", nullable = false)
@@ -49,6 +46,11 @@ public class Vehicle {
     @Column(nullable = false)
     private double extraKmRate;
 
-    public enum OwnerType { COMPANY, SUPPLIER }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransmissionType transmissionType;
+
     public enum FuelType { PETROL, DIESEL }
+    public enum TransmissionType { AUTO, MANUAL }
 }

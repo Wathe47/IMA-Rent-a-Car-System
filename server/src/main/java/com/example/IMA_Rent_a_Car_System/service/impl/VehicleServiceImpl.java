@@ -53,7 +53,6 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + id));
         vehicle.setType(dto.getType());
-        vehicle.setOwnerType(dto.getOwnerType());
         vehicle.setSupplier(supplierRepository.findById(dto.getSupplierId())
             .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + dto.getSupplierId())));
         vehicle.setRegistrationNo(dto.getRegistrationNo());

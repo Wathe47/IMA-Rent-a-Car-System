@@ -11,8 +11,9 @@ public class BookingResponseDTO {
     private Long vehicleId;
     private LocalDateTime startDatetime;
     private LocalDateTime endDatetime;
-    private Double estimatedDistance;
-    private Double ratePerUnit;
+    private Double distance;
+    private String customerNameWithNic;
+    private String vehicleNameWithReg;
     private Double totalBill;
     private Double deposit;
     private Double advancePayment;
